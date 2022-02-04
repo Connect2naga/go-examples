@@ -71,3 +71,45 @@ if err := gServer.Serve(lis); err != nil{
 	}
 ```
 
+
+# execution 
+generate server binary, 50052 is the port 
+``` make 
+ make server
+ ./bin/server
+--------------------------------------------logs ------------------------------------
+snagarju@snagarju  ~/.../go-examples/grpc_unary   grpc_simple_ex ●  make server
+Generating Go files
+cd proto && protoc --go_out=. --go-grpc_out=. \
+--go-grpc_opt=paths=source_relative --go_opt=paths=source_relative *.proto
+Building server
+go build -o bin/server server/server.go
+snagarju@snagarju  ~/.../go-examples/grpc_unary   grpc_simple_ex ● 
+snagarju@snagarju  ~/.../go-examples/grpc_unary   grpc_simple_ex ● 
+snagarju@snagarju  ~/.../go-examples/grpc_unary   grpc_simple_ex ● 
+snagarju@snagarju  ~/.../go-examples/grpc_unary   grpc_simple_ex ●  ./bin/server
+2022/02/04 11:47:31 got the message from client Msg:Hi this is Nagarjuna....
+```
+
+generate client and execute the binary
+```
+make client
+./bin/client
+
+---------------------------------------------------logs----------------------------------
+ ✘ snagarju@snagarju  ~/.../go-examples/grpc_unary   grpc_simple_ex ●  make client 
+Generating Go files
+cd proto && protoc --go_out=. --go-grpc_out=. \
+	--go-grpc_opt=paths=source_relative --go_opt=paths=source_relative *.proto
+Building client
+go build -o bin/client client/client.go
+ snagarju@snagarju  ~/.../go-examples/grpc_unary   grpc_simple_ex ●  ./
+bin/    client/ proto/  server/ vendor/ 
+ snagarju@snagarju  ~/.../go-examples/grpc_unary   grpc_simple_ex ●  ./bin/client 
+2022/02/04 11:47:31 response from server : Msg received
+
+```
+
+
+
+
