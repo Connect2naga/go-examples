@@ -9,7 +9,7 @@ import (
 	"math/rand"
 	"time"
 
-	bi_stream "github.com/connect2naga/go-examples/grpc_bidirectional_stream/proto"
+	bi_stream "github.com/connect2naga/go-examples/grpc/bidirectional_stream/proto"
 	"google.golang.org/grpc"
 )
 

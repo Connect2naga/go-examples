@@ -1,4 +1,4 @@
-module github.com/connect2naga/go-examples/grpc_unary
+module github.com/connect2naga/go-examples/grpc/server_stream
 
 go 1.16
 

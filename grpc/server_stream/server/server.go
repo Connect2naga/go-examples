@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	msg_stream "github.com/connect2naga/go-examples/grpc_server_stream/proto"
+	msg_stream "github.com/connect2naga/go-examples/grpc/server_stream/proto"
 
 	"google.golang.org/grpc"
 )

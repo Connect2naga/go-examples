@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	chat "github.com/connect2naga/go-examples/grpc_unary/proto"
+	chat "github.com/connect2naga/go-examples/grpc/unary/proto"
 
 	"google.golang.org/grpc"
 )

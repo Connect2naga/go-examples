@@ -2,7 +2,7 @@
 
 In this example, there is no guarantee of msg processing between client and service.
 ![sampleoutput](img.png)
-**Note** reliable communication [example](https://github.com/Connect2naga/go-examples/tree/main/grpc_reliable_bidirectional_communication)
+**Note** reliable communication [example](https://github.com/Connect2naga/go-examples/tree/main/grpc/reliable_bidirectional_communication)
 # execution
 generate server binary, 50052 is the port
 ``` make 
