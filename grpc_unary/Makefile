@@ -15,6 +15,6 @@ client: protoc
 
 clean:
 	go clean github.com/Connect2naga/go-examples/grpc_unary/...
-	rm -rf bin\server bin\client
+	rm -rf bin
 
 .PHONY: client server protoc
