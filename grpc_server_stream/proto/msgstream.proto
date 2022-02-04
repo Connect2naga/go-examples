@@ -1,0 +1,18 @@
+syntax = "proto3";
+package msg_stream;
+option go_package = "github.com/connect2naga/go-examples/grpc_server_stream/msg_stream";
+
+message MessageReq{
+  string body = 1;
+}
+
+message MessageRes{
+  string body = 1;
+}
+
+service ChatSteamService{
+  rpc SayHello(MessageReq) returns(stream MessageRes){}
+}
+
+
+
