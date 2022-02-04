@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package bi_stream;
+option go_package = "github.com/connect2naga/go-examples/grpc_bidirectional_stream/bi_stream";
+
+message MessageReq{
+  string body = 1;
+}
+
+message MessageRes{
+  string body = 1;
+}
+
+service ChatBiSteamService{
+  rpc SayHello(stream MessageReq) returns(stream MessageRes){}
+}

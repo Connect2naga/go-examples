@@ -41,7 +41,6 @@ func (ss StreamServer) SayHello(req *msg_stream.MessageReq, svc msg_stream.ChatS
 			log.Printf("finishing request number : %d", count)
 		}(int64(i))
 	}
-
 	wg.Wait()
 	return nil
 }
