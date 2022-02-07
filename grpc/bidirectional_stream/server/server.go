@@ -25,6 +25,7 @@ type biStream struct {
 func (biStream) SayHello(srv bi_stream.ChatBiSteamService_SayHelloServer) error {
 	log.Printf("session started with client...")
 	ctx := srv.Context()
+
 	count := 1
 	oldMsg := ""
 	for {
