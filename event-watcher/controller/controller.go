@@ -66,9 +66,8 @@ func Start(eventHandler handler.Handler) {
 		kubeClient = utils.GetClient()
 	}
 
-	// User Configured Events
-	// For Capturing CrashLoopBackOff Events in pods
-	backoffInformer := cache.NewSharedIndexInformer(
+	// For Capturing Events
+	eventInformer := cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options meta_v1.ListOptions) (runtime.Object, error) {
 				return kubeClient.CoreV1().Events("").List(context.Background(), options)
@@ -82,11 +81,11 @@ func Start(eventHandler handler.Handler) {
 		cache.Indexers{},
 	)
 
-	backoffcontroller := newResourceController(kubeClient, eventHandler, backoffInformer, "Backoff")
-	stopBackoffCh := make(chan struct{})
-	defer close(stopBackoffCh)
+	eventController := newResourceController(kubeClient, eventHandler, eventInformer, "event")
+	stopEventCh := make(chan struct{})
+	defer close(stopEventCh)
 
-	go backoffcontroller.Run(stopBackoffCh)
+	go eventController.Run(stopEventCh)
 
 	sigterm := make(chan os.Signal, 1)
 	signal.Notify(sigterm, syscall.SIGTERM)
@@ -197,12 +196,6 @@ func (c *Controller) processNextItem() bool {
 
 	return true
 }
-
-/* TODOs
-- Enhance event creation using client-side cacheing machanisms - pending
-- Enhance the processItem to classify events - done
-- Send alerts correspoding to events - done
-*/
 
 func (c *Controller) processItem(newEvent Event) error {
 	obj, _, err := c.informer.GetIndexer().GetByKey(newEvent.key)
