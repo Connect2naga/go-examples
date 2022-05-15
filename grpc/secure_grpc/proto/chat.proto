@@ -1,0 +1,18 @@
+syntax = "proto3";
+package chat;
+option go_package = "github.com/Connect2naga/go-examples/grpc/unary/chat";
+
+message MessageReq{
+  string body = 1;
+}
+
+message MessageRes{
+  string body = 1;
+}
+
+service ChatService{
+  rpc SayHello(MessageReq) returns(MessageRes){}
+}
+
+
+
