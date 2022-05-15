@@ -3,7 +3,7 @@ package authz
 
 import (
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 	"time"
 )
 
@@ -25,8 +25,8 @@ func NewJWTManager(secretKey string, tokenDuration time.Duration) *JWTManager {
 
 func (manager *JWTManager) Generate(user *User) (string, error) {
 	claims := UserClaims{
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(manager.tokenDuration).Unix(),
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: &jwt.NumericDate{time.Now().Add(manager.tokenDuration)},
 		},
 		Username: user.Username,
 		Role:     user.Role,

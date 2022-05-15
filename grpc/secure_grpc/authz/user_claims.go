@@ -1,7 +1,9 @@
 // Package jwt_manager contains ...
 package authz
 
-import "github.com/dgrijalva/jwt-go"
+import (
+	"github.com/golang-jwt/jwt/v4"
+)
 
 /*
 Author : Nagarjuna S
@@ -11,7 +13,7 @@ File : user_claims.go
 */
 
 type UserClaims struct {
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 	Username string `json:"username"`
 	Role     string `json:"role"`
 }
