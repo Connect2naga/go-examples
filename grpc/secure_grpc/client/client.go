@@ -1,9 +1,9 @@
 // Package client contains ...
-package main
+package client
 
 import (
 	"context"
-	"log"
+	"time"
 
 	chat "github.com/connect2naga/go-examples/grpc/secure_grpc/proto"
 	"google.golang.org/grpc"
@@ -16,19 +16,30 @@ Project : grpc-example
 File : client.go
 */
 
-func main() {
+type AuthClient struct {
+	service  chat.AuthServiceClient
+	username string
+	password string
+}
 
-	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(":50052", grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("Failed to dail the port 50052, error: %v ", err)
-	}
-	defer conn.Close()
+func NewAuthClient(cc *grpc.ClientConn, username string, password string) *AuthClient {
+	service := chat.NewAuthServiceClient(cc)
+	return &AuthClient{service, username, password}
+}
 
-	c := chat.NewChatServiceClient(conn)
-	res, err := c.SayHello(context.Background(), &chat.MessageReq{Body: "Hi this is Nagarjuna...."})
-	if err != nil {
-		log.Fatalf("error when calling sayHello, error:%v", err)
+func (client *AuthClient) Login() (string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	req := &chat.LoginRequest{
+		Username: client.username,
+		Password: client.password,
 	}
-	log.Printf("response from server : %s", res.Body)
+
+	res, err := client.service.Login(ctx, req)
+	if err != nil {
+		return "", err
+	}
+
+	return res.GetAccessToken(), nil
 }
